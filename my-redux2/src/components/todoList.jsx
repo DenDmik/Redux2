@@ -3,7 +3,7 @@ import Item from "./item";
 const TodoList=({todos,delTodo,toggleTodo})=>{
     return(
     <div>
-        <ul> {
+        <ul> todoList{
         
         todos.map(todo=><Item key={todo.id}
             {...todo}

@@ -1,14 +1,24 @@
-import { createSlice ,PayloadAction,createAsyncThunk} from "@reduxjs/toolkit";
+import { createSlice ,PayloadAction,createAsyncThunk, isRejectedWithValue} from "@reduxjs/toolkit";
 
 
 export const fetchList=createAsyncThunk(
     'list/fetchList',
-    async function() {
-        const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+    async function(_,{rejectWithValue}) {
+        try{
+             const response = await fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+        if(!response.ok){
+            throw new Error('Server Error')
+        }
         const data = await response.json()
         return data as Todo[]
+        }
+        catch(error){
+            return isRejectedWithValue(error.message)
+        }
+       
         
     }
+
 
 )
 
@@ -74,10 +84,12 @@ const todoSlice = createSlice(
             state.isLoading='loading'
             state.error=''
         })
-        // .addCase(fetchList.rejected,(state,action)=>{
+        .addCase(fetchList.rejected,(state,action)=>{
+            state.isLoading='rejected'
+            state.error= action.payload
 
 
-        // })
+        })
     }
     ////////////////////////////////////////////////
     

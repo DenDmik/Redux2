@@ -22,7 +22,7 @@ import { useAppSelector } from "../componentsB/hooks.ts";
      
      
      if(widthObj.length!==0){
-        let width=widthObj[0].title
+        let width=widthObj[widthObj.length-1].title
         console.log(width)
         ctx.fillRect(10,10,+width,100)
      }else{ctx.clearRect(0,0,600,400)}

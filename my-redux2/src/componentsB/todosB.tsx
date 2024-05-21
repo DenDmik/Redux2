@@ -11,10 +11,11 @@ const dispatch=useAppDispatch()
 useEffect(()=>{dispatch(fetchList())},[dispatch])
     return (
         <ul>
+            TodosB
             {
             todos.map((todo)=>(<ItemB key={todo.id} {...todo}/>))
             }
-        TodosB
+        
         </ul>
 
     )
